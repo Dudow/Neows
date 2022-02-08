@@ -1,19 +1,24 @@
-import { FaGithub } from "react-icons/fa";
+import { signIn, useSession } from "next-auth/react";
+import { FaGoogle } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
 import styles from "./styles.module.scss";
 
 export const SignInButton = () => {
-  const isUserLoggedIn = true;
+  const { status, data } = useSession();
 
-  return !isUserLoggedIn ? (
-    <button type="button" className={styles.signInButton}>
-      <FaGithub color="#eba417" />
-      Sign in with GitHub
+  return status === "unauthenticated" ? (
+    <button
+      type="button"
+      className={styles.signInButton}
+      onClick={() => signIn()}
+    >
+      <FaGoogle color="#eba417" />
+      Sign in with Google
     </button>
   ) : (
     <button type="button" className={styles.signInButton}>
-      <FaGithub color="#04b361" />
-      Dudow
+      <FaGoogle color="#04b361" />
+      {data?.user.name}
       <FiX color="#737380" className={styles.closeIcon} />
     </button>
   );
