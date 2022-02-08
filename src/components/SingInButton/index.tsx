@@ -1,4 +1,4 @@
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { FaGoogle } from "react-icons/fa";
 import { FiX } from "react-icons/fi";
 import styles from "./styles.module.scss";
@@ -19,7 +19,11 @@ export const SignInButton = () => {
     <button type="button" className={styles.signInButton}>
       <FaGoogle color="#04b361" />
       {data?.user.name}
-      <FiX color="#737380" className={styles.closeIcon} />
+      <FiX
+        color="#737380"
+        className={styles.closeIcon}
+        onClick={() => signOut()}
+      />
     </button>
   );
 };
